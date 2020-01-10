@@ -1,23 +1,16 @@
 const wrapLog = function (callback, name) {
     /* your code here */
     
-    if(name === "area") {
-        return function(x,y) {
-            console.log(`${name}(${x}, ${y}) => ${callback(x,y)}`);
-        } 
-    } else if (name === "volume") {
-        return function(x,y,z) {
-            console.log(`${name}(${x}, ${y}, ${z}) => ${callback(x,y,z)}`);
-        }
-    }
-
-
-  };
-  
+    return function(){
+         let args = [...arguments];
+         let joinedArgs = args.join(", ");
+         let example = parseInt(joinedArgs);
+         console.log(`${name} (${joinedArgs}) => ${callback.apply(null, args)} `);
+    };    
+};
 
 
   //////
-
 
   const area = function (x, y) {
     return x * y;
@@ -28,7 +21,6 @@ const wrapLog = function (callback, name) {
   logArea(5, 3); // area(5, 3) => 15
   logArea(3, 2); // area(3, 2) => 6
   
-
 
   //////
 
